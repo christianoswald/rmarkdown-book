@@ -36,7 +36,6 @@ abline(fit)
 ```
 
 The slope of the regression is `r b[1]`.
-```
 ````
 
 You can create such a text file with any editor (including but not limited to RStudio). If you use RStudio, you can create a new Rmd file from the menu `File -> New File -> R Markdown`.
@@ -213,6 +212,15 @@ cat(yaml::as.yaml(list(
 ```
 
 Note that the subtitle in the above example is quoted because of the colon.
+
+If you have options that need to be the result of an evaluated R expression, you can use `!expr`, which tells the 
+**yaml** package that it needs to parse and evaluate that option. Below is an example that uses a random theme for the HTML output:
+
+```yaml
+output:
+  html_document:
+    theme: !expr sample(c("yeti", "united", "lumen"), 1)
+```
 
 If a certain option has sub-options (which means the value of this option is a list in R), the sub-options need to be further indented, e.g.,
 
@@ -504,7 +512,7 @@ plot(cars, pch = 18)
 
 You can provide a figure caption using `fig.cap` in the chunk options. If the document output format supports the option `fig_caption: true` (e.g., the output format `rmarkdown::html_document`), the R plots will be placed into figure environments. In the case of PDF output, such figures will be automatically numbered. If you also want to number figures in other formats (such as HTML), please see the **bookdown** package in Chapter \@ref(books) (in particular, see Section \@ref(a-single-document)).
 
-PDF documents are generated through the LaTeX files generated from R Markdown. A highly surprising fact to LaTeX beginners is that figures float by default: even if you generate a plot in a code chunk on the first page, the whole figure environment may float to the next page. This is just how LaTeX works by default. It has a tendency to float figures to the top or bottom of pages. Although it can be annoying and distracting, we recommend that you refrain from playing the "Whac-A-Mole" game in the beginning of your writing, i.e., desparately trying to position figures "correctly" while they seem to be always dodging you. You may wish to fine-tune the positions once the content is complete using the `fig.pos` chunk option (e.g., `fig.pos = 'h')`. See https://www.sharelatex.com/learn/Positioning_images_and_tables for possible values of `fig.pos` and more general tips about this behavior in LaTeX. In short, this can be a difficult problem for PDF output.
+PDF documents are generated through the LaTeX files generated from R Markdown. A highly surprising fact to LaTeX beginners is that figures float by default: even if you generate a plot in a code chunk on the first page, the whole figure environment may float to the next page. This is just how LaTeX works by default. It has a tendency to float figures to the top or bottom of pages. Although it can be annoying and distracting, we recommend that you refrain from playing the "Whac-A-Mole" game in the beginning of your writing, i.e., desparately trying to position figures "correctly" while they seem to be always dodging you. You may wish to fine-tune the positions once the content is complete using the `fig.pos` chunk option (e.g., `fig.pos = 'h')`. See https://www.overleaf.com/learn/latex/Positioning_images_and_tables for possible values of `fig.pos` and more general tips about this behavior in LaTeX. In short, this can be a difficult problem for PDF output.
 
 To place multiple figures side-by-side from the same code chunk, you can use the `fig.show='hold'` option along with the `out.width` option. Figure \@ref(fig:hold-position) shows an example with two plots, each with a width of `50%`.
 
@@ -770,7 +778,7 @@ print(fit)
 
 ### JavaScript and CSS
 
-If you are using an R Markdown format that targets HTML output (e.g., `html_document` and `ioslides_presenation`, etc.), you can include JavaScript\index{JavaScript} to be executed within the HTML page using the JavaScript engine named `js`.
+If you are using an R Markdown format that targets HTML output (e.g., `html_document` and `ioslides_presentation`, etc.), you can include JavaScript\index{JavaScript} to be executed within the HTML page using the JavaScript engine named `js`.
 
 For example, the following chunk uses jQuery (which is included in most R Markdown HTML formats) to change the color of the document title to red:
 
